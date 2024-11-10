@@ -1,13 +1,33 @@
 import sqlite3
-
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
+from fastapi.middleware.cors import CORSMiddleware
+import subprocess
 import json
 import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from data_process import preprocess
 
 app = FastAPI()
+
+# 添加CORS中间件
+origins = [
+    "http://localhost:8081",  # 前端地址
+    "http://127.0.0.1:8081",
+    "http://localhost:8082"
+    # 其他允许的源
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # 允许的来源
+    allow_credentials=True,
+    allow_methods=["*"],  # 允许的HTTP方法
+    allow_headers=["*"],  # 允许的HTTP头
+)
 
 class FieldData(BaseModel):
     text: str
@@ -54,16 +74,22 @@ async def append_to_file(input_data: InputData):
 
 
 def get_db_connection():
-    conn = sqlite3.connect('yunfeng_notices.db')
+    conn = sqlite3.connect('../spider1/notices.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.get("/notices/")
-def read_notices(limit: int = 10):
+class Notice(BaseModel):
+    title: str
+    date: str
+    link: str
+    content: str
+
+@app.get("/notices/{table_name}", response_model=list[Notice])
+def read_notices(table_name: str, limit: int = 10):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM notices ORDER BY date DESC LIMIT ?", (limit,))
+    cursor.execute(f"SELECT title, date, link, content FROM {table_name} ORDER BY date DESC LIMIT ?", (limit,))
     notices = cursor.fetchall()
 
     conn.close()
@@ -71,15 +97,23 @@ def read_notices(limit: int = 10):
     if not notices:
         raise HTTPException(status_code=404, detail="No notices found")
 
-    return [dict(notice) for notice in notices]
+    validated_notices = []
+    for notice in notices:
+        try:
+            validated_notices.append(Notice(**dict(notice)))
+        except ValidationError as e:
+            print(f"Validation error for notice: {notice}")
+            print(e)
+
+    return validated_notices
 
 
-@app.get("/notices/{notice_id}")
-def read_notice(notice_id: int):
+@app.get("/notices/{table_name}/{notice_id}", response_model=Notice)
+def read_notice(table_name: str, notice_id: int):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM notices WHERE id = ?", (notice_id,))
+    cursor.execute(f"SELECT title, date, link, content FROM {table_name} WHERE id = ?", (notice_id,))
     notice = cursor.fetchone()
 
     conn.close()
@@ -87,7 +121,13 @@ def read_notice(notice_id: int):
     if notice is None:
         raise HTTPException(status_code=404, detail="Notice not found")
 
-    return dict(notice)
+    try:
+        return Notice(**dict(notice))
+    except ValidationError as e:
+        print(f"Validation error for notice: {notice}")
+        print(e)
+        raise HTTPException(status_code=400, detail="Invalid notice data")
+
 
 if __name__ == "__main__":
     import uvicorn

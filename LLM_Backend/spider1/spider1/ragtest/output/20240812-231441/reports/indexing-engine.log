@@ -1,0 +1,616 @@
+23:14:41,931 graphrag.config.read_dotenv INFO Loading pipeline .env file
+23:14:41,934 graphrag.index.cli INFO using default configuration: {
+    "llm": {
+        "api_key": "REDACTED, length 35",
+        "type": "openai_chat",
+        "model": "qwen-turbo",
+        "max_tokens": 2000,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "request_timeout": 180.0,
+        "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "api_version": null,
+        "proxy": null,
+        "cognitive_services_endpoint": null,
+        "deployment_name": null,
+        "model_supports_json": false,
+        "tokens_per_minute": 150000,
+        "requests_per_minute": 10000,
+        "max_retries": 10,
+        "max_retry_wait": 10.0,
+        "sleep_on_rate_limit_recommendation": true,
+        "concurrent_requests": 10
+    },
+    "parallelization": {
+        "stagger": 0.3,
+        "num_threads": 50
+    },
+    "async_mode": "threaded",
+    "root_dir": "./ragtest",
+    "reporting": {
+        "type": "file",
+        "base_dir": "output/${timestamp}/reports",
+        "storage_account_blob_url": null
+    },
+    "storage": {
+        "type": "file",
+        "base_dir": "output/${timestamp}/artifacts",
+        "storage_account_blob_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "source_column": null,
+        "timestamp_column": null,
+        "timestamp_format": null,
+        "text_column": "text",
+        "title_column": null,
+        "document_attribute_columns": []
+    },
+    "embed_graph": {
+        "enabled": false,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "strategy": null
+    },
+    "embeddings": {
+        "llm": {
+            "api_key": "REDACTED, length 35",
+            "type": "openai_embedding",
+            "model": "async-v",
+            "max_tokens": 4000,
+            "temperature": 0,
+            "top_p": 1,
+            "n": 1,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/api/v1/services/embeddings/text-embedding/text-embedding",
+            "api_version": null,
+            "proxy": null,
+            "cognitive_services_endpoint": null,
+            "deployment_name": null,
+            "model_supports_json": null,
+            "tokens_per_minute": 0,
+            "requests_per_minute": 0,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 10
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "target": "required",
+        "skip": [],
+        "vector_store": null,
+        "strategy": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": null,
+        "encoding_model": null
+    },
+    "snapshots": {
+        "graphml": false,
+        "raw_entities": false,
+        "top_level_nodes": false
+    },
+    "entity_extraction": {
+        "llm": {
+            "api_key": "REDACTED, length 35",
+            "type": "openai_chat",
+            "model": "qwen-turbo",
+            "max_tokens": 2000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "cognitive_services_endpoint": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 150000,
+            "requests_per_minute": 10000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 10
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/entity_extraction.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": null
+    },
+    "summarize_descriptions": {
+        "llm": {
+            "api_key": "REDACTED, length 35",
+            "type": "openai_chat",
+            "model": "qwen-turbo",
+            "max_tokens": 2000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "cognitive_services_endpoint": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 150000,
+            "requests_per_minute": 10000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 10
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "strategy": null
+    },
+    "community_reports": {
+        "llm": {
+            "api_key": "REDACTED, length 35",
+            "type": "openai_chat",
+            "model": "qwen-turbo",
+            "max_tokens": 2000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "cognitive_services_endpoint": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 150000,
+            "requests_per_minute": 10000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 10
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "prompt": "prompts/community_report.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "claim_extraction": {
+        "llm": {
+            "api_key": "REDACTED, length 35",
+            "type": "openai_chat",
+            "model": "qwen-turbo",
+            "max_tokens": 2000,
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "request_timeout": 180.0,
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "proxy": null,
+            "cognitive_services_endpoint": null,
+            "deployment_name": null,
+            "model_supports_json": false,
+            "tokens_per_minute": 150000,
+            "requests_per_minute": 10000,
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "sleep_on_rate_limit_recommendation": true,
+            "concurrent_requests": 10
+        },
+        "parallelization": {
+            "stagger": 0.3,
+            "num_threads": 50
+        },
+        "async_mode": "threaded",
+        "enabled": false,
+        "prompt": "prompts/claim_extraction.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null,
+        "encoding_model": null
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "strategy": null
+    },
+    "umap": {
+        "enabled": false
+    },
+    "local_search": {
+        "text_unit_prop": 0.5,
+        "community_prop": 0.1,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "llm_max_tokens": 2000
+    },
+    "global_search": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "n": 1,
+        "max_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_tokens": 1000,
+        "reduce_max_tokens": 2000,
+        "concurrency": 32
+    },
+    "encoding_model": "cl100k_base",
+    "skip_workflows": []
+}
+23:14:41,936 graphrag.index.create_pipeline_config INFO skipping workflows 
+23:14:41,937 graphrag.index.run INFO Running pipeline
+23:14:41,937 graphrag.index.storage.file_pipeline_storage INFO Creating file storage at ragtest\output\20240812-231441\artifacts
+23:14:41,940 graphrag.index.input.load_input INFO loading input from root_dir=input
+23:14:41,941 graphrag.index.input.load_input INFO using file storage for input
+23:14:41,942 graphrag.index.storage.file_pipeline_storage INFO search ragtest\input for files matching .*\.txt$
+23:14:41,942 graphrag.index.input.text INFO found text files from input, found [('input.txt', {})]
+23:14:41,946 graphrag.index.input.text INFO Found 1 files, loading 1
+23:14:41,947 graphrag.index.workflows.load INFO Workflow Run Order: ['create_base_text_units', 'create_base_extracted_entities', 'create_summarized_entities', 'create_base_entity_graph', 'create_final_entities', 'create_final_nodes', 'create_final_communities', 'join_text_units_to_entity_ids', 'create_final_relationships', 'join_text_units_to_relationship_ids', 'create_final_community_reports', 'create_final_text_units', 'create_base_documents', 'create_final_documents']
+23:14:41,947 graphrag.index.run INFO Final # of rows loaded: 1
+23:14:42,69 graphrag.index.run INFO Running workflow: create_base_text_units...
+23:14:42,69 graphrag.index.run INFO dependencies for create_base_text_units: []
+23:14:42,74 datashaper.workflow.workflow INFO executing verb orderby
+23:14:42,76 datashaper.workflow.workflow INFO executing verb zip
+23:14:42,78 datashaper.workflow.workflow INFO executing verb aggregate_override
+23:14:42,81 datashaper.workflow.workflow INFO executing verb chunk
+23:14:42,229 datashaper.workflow.workflow INFO executing verb select
+23:14:42,231 datashaper.workflow.workflow INFO executing verb unroll
+23:14:42,235 datashaper.workflow.workflow INFO executing verb rename
+23:14:42,238 datashaper.workflow.workflow INFO executing verb genid
+23:14:42,243 datashaper.workflow.workflow INFO executing verb unzip
+23:14:42,245 datashaper.workflow.workflow INFO executing verb copy
+23:14:42,250 datashaper.workflow.workflow INFO executing verb filter
+23:14:42,262 graphrag.index.emit.parquet_table_emitter INFO emitting parquet table create_base_text_units.parquet
+23:14:42,409 graphrag.index.run INFO Running workflow: create_base_extracted_entities...
+23:14:42,409 graphrag.index.run INFO dependencies for create_base_extracted_entities: ['create_base_text_units']
+23:14:42,409 graphrag.index.run INFO read table from storage: create_base_text_units.parquet
+23:14:42,420 datashaper.workflow.workflow INFO executing verb entity_extract
+23:14:42,428 graphrag.llm.openai.create_openai_client INFO Creating OpenAI client base_url=https://dashscope.aliyuncs.com/compatible-mode/v1
+23:14:42,602 graphrag.index.llm.load_llm INFO create TPM/RPM limiter for qwen-turbo: TPM=150000, RPM=10000
+23:14:42,602 graphrag.index.llm.load_llm INFO create concurrency limiter for qwen-turbo: 10
+23:14:57,10 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 400 Bad Request"
+23:14:57,12 graphrag.index.reporting.file_workflow_callbacks INFO Error Invoking LLM details={'input': 'MANY entities and relationships were missed in the last extraction. Remember to ONLY emit entities that match any of the previously extracted types. Add them below using the same format:\n'}
+23:14:57,12 root ERROR error extracting graph
+Traceback (most recent call last):
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\graph\extractors\graph\graph_extractor.py", line 123, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\graph\extractors\graph\graph_extractor.py", line 162, in _process_document
+    response = await self._llm(
+               ^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\json_parsing_llm.py", line 34, in __call__
+    result = await self._delegate(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\openai_token_replacing_llm.py", line 37, in __call__
+    return await self._delegate(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\openai_history_tracking_llm.py", line 33, in __call__
+    output = await self._delegate(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\caching_llm.py", line 96, in __call__
+    result = await self._delegate(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 177, in __call__
+    result, start = await execute_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 159, in execute_with_retry
+    async for attempt in retryer:
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 166, in __anext__
+    do = await self.iter(retry_state=self._retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 153, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\__init__.py", line 398, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 165, in execute_with_retry
+    return await do_attempt(), start
+           ^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 147, in do_attempt
+    return await self._delegate(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 49, in __call__
+    return await self._invoke(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 53, in _invoke
+    output = await self._execute_llm(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\openai_chat_llm.py", line 53, in _execute_llm
+    completion = await self.client.chat.completions.create(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\resources\chat\completions.py", line 1305, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1815, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1509, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1610, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'data_inspection_failed', 'param': None, 'message': 'Input data may contain inappropriate content.', 'type': 'data_inspection_failed'}, 'id': 'chatcmpl-60ed789a-9a23-96d0-85c5-33caea839406'}
+23:14:57,18 graphrag.index.reporting.file_workflow_callbacks INFO Entity Extraction Error details={'doc_index': 0, 'text': '。 4. 对有志于投身祖国西部、基层单位工作的同学予以优先考虑。 四、选拔程序 本次选拔以 个人自荐与组织推荐相结合 的方式进行。凡符合选拔条件的学生可自愿报名；各院级团委可择优推荐 4-6 名优秀学生；校级学生组织（含校级学生社团）可择优推荐 2-3 名优秀学生。具体选拔程序如下。 1. 初审。青马学院将对报名人选进行资格初审，初审通过者将进入下一轮选拔。 2. 笔试。青马学院将组织统一笔试，预计时间为 5 月 26 日（周日）。 3. 初选面试。预计时间为 5 月 31 日（周五下午），青马学院将综合笔试、初选面试成绩选拔部分同学进入专家面试。 4. 专家面试。青马学院将组织专家面试（预计 6 月初），确定拟录取人选名单。 5. 名单公示。拟录取人选名单将在校团委网站进行公示，公示无异议者录取为青马学院第十七期学员。 五、注意事项 1. 报名者（含组织推荐人选）请填写《报名表》（见附件 1 ）、《个人信息简表》（见附件 2 ），并将 《报名表》和《个人信息表》（均需电子版、加盖公章纸质版的扫描件）、全部课程成绩单（加盖公章纸质版的扫描件） 以 .rar 或 .zip 文件格式打包，于 5 月 22 日（周三） 17:00 前 发送至 zjuqmxy@126.com ，压缩包及邮件主题均以“青马十七期报名 + 姓名”命名。 2. 有意向获得组织推荐的同学， 请填写《报名表》（见附件 1 ）、《个人信息简表》（见附件 2 ） 以及组织推荐申请表（附件 3 ），并 将 《报名表》和《个人信息表》（均需电子版、加盖公章纸质版的扫描件）、全部课程成绩单（加盖公章纸质版的扫描件） 以及组织推荐申请表电子版 以 .rar 或 .zip 文件格式打包 ， 于 5 月 19 日（周 日 ） 17:00 前 以“青马十 七 期组织推荐申请 + 姓名”命名发送至邮箱 0023808@zju.edu.cn ，学园将择优推荐（后续将以邮件形式反馈是否组织推荐）。 3. 笔试、面试的具体安排将通过手机短信形式通知，请及时留意查看。 4. 有志于加入青马学院的同学，可通过校团委微信公众号“浙江大学团委”和青马学院微信公众号“浙大青马工程”进一步了解相关信息。同时欢迎加入“青马十七期招生交流群（钉钉群）”在线咨询与交流。 “ 浙大青马工程”微信公众号二维码 青马十七期招生交流群（钉钉群）二维码 未尽事宜，请联系云峰学园分团委： 楼超腾 88206505 【姓名】附件1：青马学院第十七期招生报名表.doc 【姓名】附件2：青马学院第十七期招生个人信息简表.xlsx 【推荐单位云峰学园】附件3：青马学院第十七期学员招生组织推荐人选申请表.xlsx 共青团浙江大学求是学院紫云碧峰学'}
+23:14:57,27 datashaper.workflow.workflow INFO executing verb merge_graphs
+23:14:57,113 graphrag.index.emit.parquet_table_emitter INFO emitting parquet table create_base_extracted_entities.parquet
+23:14:57,262 graphrag.index.run INFO Running workflow: create_summarized_entities...
+23:14:57,262 graphrag.index.run INFO dependencies for create_summarized_entities: ['create_base_extracted_entities']
+23:14:57,262 graphrag.index.run INFO read table from storage: create_base_extracted_entities.parquet
+23:14:57,276 datashaper.workflow.workflow INFO executing verb summarize_descriptions
+23:14:59,673 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:14:59,675 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 2.25. input_tokens=456, output_tokens=93
+23:15:01,962 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:01,964 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.063000000023749. input_tokens=333, output_tokens=88
+23:15:02,22 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:02,22 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.342999999993481. input_tokens=309, output_tokens=62
+23:15:02,617 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:02,618 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.98399999999674. input_tokens=432, output_tokens=158
+23:15:02,709 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:02,710 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.85899999999674. input_tokens=1211, output_tokens=160
+23:15:02,756 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:02,756 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.719000000040978. input_tokens=446, output_tokens=151
+23:15:03,22 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:03,23 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 5.311999999976251. input_tokens=542, output_tokens=112
+23:15:04,446 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:04,447 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 6.842999999993481. input_tokens=310, output_tokens=286
+23:15:04,570 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:04,571 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 6.5310000000172295. input_tokens=446, output_tokens=176
+23:15:04,647 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:04,648 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 6.875. input_tokens=393, output_tokens=201
+23:15:05,264 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:05,265 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 5.592999999993481. input_tokens=455, output_tokens=173
+23:15:05,924 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:05,925 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 3.2189999999827705. input_tokens=393, output_tokens=178
+23:15:06,94 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:06,95 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 3.48499999998603. input_tokens=887, output_tokens=197
+23:15:06,353 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:06,355 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 4.39100000000326. input_tokens=541, output_tokens=200
+23:15:08,672 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+23:15:08,673 graphrag.llm.base.rate_limiting_llm INFO perf - llm.chat "summarize" with 0 retries took 6.657000000006519. input_tokens=1184, output_tokens=352
+23:15:08,729 graphrag.index.emit.parquet_table_emitter INFO emitting parquet table create_summarized_entities.parquet
+23:15:08,872 graphrag.index.run INFO Running workflow: create_base_entity_graph...
+23:15:08,872 graphrag.index.run INFO dependencies for create_base_entity_graph: ['create_summarized_entities']
+23:15:08,874 graphrag.index.run INFO read table from storage: create_summarized_entities.parquet
+23:15:08,886 datashaper.workflow.workflow INFO executing verb cluster_graph
+23:15:09,368 datashaper.workflow.workflow INFO executing verb select
+23:15:09,374 graphrag.index.emit.parquet_table_emitter INFO emitting parquet table create_base_entity_graph.parquet
+23:15:09,532 graphrag.index.run INFO Running workflow: create_final_entities...
+23:15:09,532 graphrag.index.run INFO dependencies for create_final_entities: ['create_base_entity_graph']
+23:15:09,532 graphrag.index.run INFO read table from storage: create_base_entity_graph.parquet
+23:15:09,552 datashaper.workflow.workflow INFO executing verb unpack_graph
+23:15:09,689 datashaper.workflow.workflow INFO executing verb rename
+23:15:09,696 datashaper.workflow.workflow INFO executing verb select
+23:15:09,701 datashaper.workflow.workflow INFO executing verb dedupe
+23:15:09,708 datashaper.workflow.workflow INFO executing verb rename
+23:15:09,713 datashaper.workflow.workflow INFO executing verb filter
+23:15:09,736 datashaper.workflow.workflow INFO executing verb text_split
+23:15:09,757 datashaper.workflow.workflow INFO executing verb drop
+23:15:09,763 datashaper.workflow.workflow INFO executing verb merge
+23:15:09,922 datashaper.workflow.workflow INFO executing verb text_embed
+23:15:09,924 graphrag.llm.openai.create_openai_client INFO Creating OpenAI client base_url=https://dashscope.aliyuncs.com/api/v1/services/embeddings/text-embedding/text-embedding
+23:15:10,86 graphrag.index.llm.load_llm INFO create TPM/RPM limiter for async-v: TPM=0, RPM=0
+23:15:10,86 graphrag.index.llm.load_llm INFO create concurrency limiter for async-v: 10
+23:15:10,149 graphrag.index.verbs.text.embed.strategies.openai INFO embedding 1814 inputs via 1814 snippets using 114 batches. max_batch_size=16, max_tokens=8191
+23:15:12,243 httpx INFO HTTP Request: POST https://dashscope.aliyuncs.com/api/v1/services/embeddings/text-embedding/text-embedding/embeddings "HTTP/1.1 400 Bad Request"
+23:15:12,245 graphrag.index.reporting.file_workflow_callbacks INFO Error Invoking LLM details={'input': ['西部:指中国西部地区', '教师:The entity "\\u6559\\u5e08" appears to be associated with "与出口相关的生产制造人员", which translates to "production manufacturing personnel related to exports". Unfortunately, there isn\'t any other descriptive information available to further elaborate on this entity. The given description seems consistent and doesn\'t contain any contradictions, therefore no resolution was necessary.', '学院:The entity "\\u5b66\\u9662" refers to devices placed in the large room of a facility or building. These devices could be part of a larger system or infrastructure within the enclosed space. Separately, it is also mentioned that they are located in the high-pressure area of the equipment on the device panel. This suggests an industrial or technical setting where "\\u5b66\\u9662" likely plays a crucial role in managing or monitoring conditions in the designated area. The two descriptions, while initially contradictory in their specific contexts (large room vs high-pressure area), can be reconciled to describe elements of a comprehensive system within the facility. It indicates that "\\u5b66\\u9662" is an integral part of both the spatial layout and operational dynamics of the environment it inhabits.', '系:The entity "\\u7cfb" is associated with the description "\\u5927\\u5b66\\u4e2d\\u7684\\u4e13\\u4e1a\\u90e8\\u95e8", implying it\'s situated in a vast area that accommodates various industries. This location plays a crucial role in facilitating extensive industrial operations. Additionally, "\\u9ad8\\u7b49\\u6559\\u80b2\\u673a\\u6784\\u4e2d\\u7684\\u5b66\\u672f\\u5355\\u4f4d" indicates that it is located at the southern end of certain technical equipment factories, offering an optimal environment for the management and control of the production process. It appears that the area or facility has a strong focus on monitoring and guiding both the industrial sector and production processes effectively, suggesting a central role in the broader economic activities in this region.', '教学单位:负责教学的学术机构', '教学团队:一组共同授课的教师', '教学大纲:课程的整体规划和教学设计文件', '课程性质:课程的类型和属性', '课时学分:课程的学时数和学分', '学生对象:适合的学生群体或学习者分类', '课程简介:课程的基本介绍和概述', '课程目标:课程预期达成的学习目标', '学情分析:对学生学习状况的评估和理解', '课程内容与教学安排:课程的具体内容和教学计划', '课程评价:对学生学习成果和课程效果的评估机制', '课程教学日历:The "Blue Sky Review" involves analyzing the time line and the development process, focusing on the comprehensive study of the blue sky review conducted in the 4-star "2024 Year Comprehensive Large-Scale Blue Sky Review". This work has been successfully carried out by professional personnel, ensuring timely implementation and coordination.']}
+23:15:12,246 datashaper.workflow.workflow ERROR Error executing verb "text_embed" in create_final_entities: Error code: 400 - {'code': 'BadRequest.IllegalInput', 'message': 'The input parameter requires json format.', 'request_id': '2ec1ce21-049f-9a6f-b74d-63f88121facc'}
+Traceback (most recent call last):
+  File "E:\Anaconda\Lib\site-packages\datashaper\workflow\workflow.py", line 415, in _execute_verb
+    result = await result
+             ^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\text_embed.py", line 105, in text_embed
+    return await _text_embed_in_memory(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\text_embed.py", line 130, in _text_embed_in_memory
+    result = await strategy_exec(texts, callbacks, cache, strategy_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 62, in run
+    embeddings = await _execute(llm, text_batches, ticker, semaphore)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 106, in _execute
+    results = await asyncio.gather(*futures)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\asyncio\tasks.py", line 339, in __wakeup
+    future.result()
+  File "E:\Anaconda\Lib\asyncio\tasks.py", line 267, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 100, in embed
+    chunk_embeddings = await llm(chunk)
+                       ^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\caching_llm.py", line 96, in __call__
+    result = await self._delegate(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 177, in __call__
+    result, start = await execute_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 159, in execute_with_retry
+    async for attempt in retryer:
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 166, in __anext__
+    do = await self.iter(retry_state=self._retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 153, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\__init__.py", line 398, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 165, in execute_with_retry
+    return await do_attempt(), start
+           ^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 147, in do_attempt
+    return await self._delegate(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 49, in __call__
+    return await self._invoke(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 53, in _invoke
+    output = await self._execute_llm(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\openai_embeddings_llm.py", line 36, in _execute_llm
+    embedding = await self.client.embeddings.create(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\resources\embeddings.py", line 215, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1815, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1509, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1610, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'code': 'BadRequest.IllegalInput', 'message': 'The input parameter requires json format.', 'request_id': '2ec1ce21-049f-9a6f-b74d-63f88121facc'}
+23:15:12,250 graphrag.index.reporting.file_workflow_callbacks INFO Error executing verb "text_embed" in create_final_entities: Error code: 400 - {'code': 'BadRequest.IllegalInput', 'message': 'The input parameter requires json format.', 'request_id': '2ec1ce21-049f-9a6f-b74d-63f88121facc'} details=None
+23:15:12,257 graphrag.index.run ERROR error running workflow create_final_entities
+Traceback (most recent call last):
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\run.py", line 323, in run_pipeline
+    result = await workflow.run(context, callbacks)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\datashaper\workflow\workflow.py", line 369, in run
+    timing = await self._execute_verb(node, context, callbacks)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\datashaper\workflow\workflow.py", line 415, in _execute_verb
+    result = await result
+             ^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\text_embed.py", line 105, in text_embed
+    return await _text_embed_in_memory(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\text_embed.py", line 130, in _text_embed_in_memory
+    result = await strategy_exec(texts, callbacks, cache, strategy_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 62, in run
+    embeddings = await _execute(llm, text_batches, ticker, semaphore)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 106, in _execute
+    results = await asyncio.gather(*futures)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\asyncio\tasks.py", line 339, in __wakeup
+    future.result()
+  File "E:\Anaconda\Lib\asyncio\tasks.py", line 267, in __step
+    result = coro.send(None)
+             ^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\index\verbs\text\embed\strategies\openai.py", line 100, in embed
+    chunk_embeddings = await llm(chunk)
+                       ^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\caching_llm.py", line 96, in __call__
+    result = await self._delegate(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 177, in __call__
+    result, start = await execute_with_retry()
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 159, in execute_with_retry
+    async for attempt in retryer:
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 166, in __anext__
+    do = await self.iter(retry_state=self._retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\asyncio\__init__.py", line 153, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\tenacity\__init__.py", line 398, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 165, in execute_with_retry
+    return await do_attempt(), start
+           ^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\rate_limiting_llm.py", line 147, in do_attempt
+    return await self._delegate(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 49, in __call__
+    return await self._invoke(input, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\base\base_llm.py", line 53, in _invoke
+    output = await self._execute_llm(input, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\graphrag\llm\openai\openai_embeddings_llm.py", line 36, in _execute_llm
+    embedding = await self.client.embeddings.create(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\resources\embeddings.py", line 215, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1815, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1509, in request
+    return await self._request(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "E:\Anaconda\Lib\site-packages\openai\_base_client.py", line 1610, in _request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'code': 'BadRequest.IllegalInput', 'message': 'The input parameter requires json format.', 'request_id': '2ec1ce21-049f-9a6f-b74d-63f88121facc'}
+23:15:12,260 graphrag.index.reporting.file_workflow_callbacks INFO Error running pipeline! details=None

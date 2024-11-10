@@ -3,8 +3,12 @@ from scrapy.crawler import CrawlerProcess
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import sqlite3
-from model import Result
-
+# from model import Result
+class Result:
+    title:str
+    date:str
+    link: str
+    content: str
 
 class UgrsSpider(scrapy.Spider):
     name = 'ugrs'

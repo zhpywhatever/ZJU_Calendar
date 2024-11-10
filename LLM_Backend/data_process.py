@@ -7,6 +7,9 @@ import os
 from tqdm import tqdm
 import json
 import csv
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from classification import get_text_type
 from train_text import get_train_text, add_train_texts
@@ -64,7 +67,7 @@ def preprocess():  # For FastText only
     预处理文本，去除标点符号，停用词，英文字符
     """
     train_results = []
-    file_path = "output.json"
+    file_path = "./output.json"
     processing_data = get_train_text(file_path)
     for row in processing_data:
         #print(row)
